@@ -1,7 +1,6 @@
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
        
-       
         num1, num2 = (map(int, v.split(".")) for v in (version1, version2))
         num1, num2 = list(num1), list(num2)
         d = len(num2) - len(num1)

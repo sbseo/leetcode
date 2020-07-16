@@ -8,16 +8,18 @@ class Solution(object):
         :rtype: str
         """
         l, r = 0, 0
-        answer = list()
-        answer_exists = False
-        while l <= r <= len(s):
-            window = Counter(s[l:r])
-            if not len(Counter(t) - window):
-                answer_exists = True
-                answer.append(s[l:r])
-                l += 1
+        target = Counter(t)
+        answer, answer_exists = str(1) * (len(s)+1), False
+        window = Counter(s[l:r+1])
+        while r < len(s):
+            if (target - window):
+                r += 1
+                if r < len(s): window[s[r]] += 1
             else:
-                r +=1
+                answer_exists = True
+                if len(answer) > len(s[l:r+1]): answer = s[l:r+1]
+                window[s[l]] -= 1
+                l += 1
         return answer if answer_exists else ""
 
 print(Solution().minWindow("ADOBECODEBANC", "ABC")) #BANC

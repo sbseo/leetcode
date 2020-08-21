@@ -5,22 +5,25 @@ class TreeNode:
     self.right = right
 
 
-def find_path(root, sequence):
+def find_path(root, path):
   # TODO: Write your code here
-    return dfs(root, sequence, 0)    
+  result = dfs(root, [])  
+  if path in result:
+    return True
+  return False
+
+def dfs(curr, path):
+  if not curr:
+    return []
   
-def dfs(curr, sequence, idx):
-        
-    if not curr: 
-        return False    
-    
-    if sequence[idx] != curr.val:
-        return False
-    
-    if curr.left is None and curr.right is None:
-        return True
-    
-    return dfs(curr.left, sequence, idx+1) or dfs(curr.right, sequence, idx+1)         
+  if curr.left is None and curr.right is None:
+    return [path + [curr.val]]
+
+  paths = list()
+  paths += dfs(curr.left, path + [curr.val])
+  paths += dfs(curr.right, path + [curr.val])
+
+  return paths
 
 def main():
 
@@ -30,7 +33,6 @@ def main():
   root.left.left = TreeNode(1)
   root.right.left = TreeNode(6)
   root.right.right = TreeNode(5)
-  root.right.right.right = TreeNode(7)
 
   print("Tree has path sequence: " + str(find_path(root, [1, 0, 7])))
   print("Tree has path sequence: " + str(find_path(root, [1, 1, 6])))

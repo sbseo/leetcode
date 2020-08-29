@@ -1,0 +1,25 @@
+def find_LCS_length(s1, s2):
+    
+    return dfs(s1, s2, 0, 0, 0)
+
+def dfs(s1, s2, idx1, idx2, count):
+
+    # base
+    if idx1 == len(s1) or idx2 == len(s2):
+        return count
+    
+    if s1[idx1] == s2[idx2]:
+        count = dfs(s1, s2, idx1+1, idx2+1, count+1)    
+    
+    # recursion
+    c1 = dfs(s1, s2, idx1+1, idx2, 0)
+    c2 = dfs(s1, s2, idx1, idx2+1, 0)
+
+    return max(count, max(c1, c2))
+
+def main():
+    print(find_LCS_length("abdca", "cbda"))
+    print(find_LCS_length("passport", "ppsspt"))
+
+
+main()
